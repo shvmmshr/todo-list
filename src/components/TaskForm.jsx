@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import '../Button/button.css';
 const TaskForm = ({ fetchTasks }) => {
   const [task, setTask] = useState('');
 
@@ -26,7 +26,7 @@ const TaskForm = ({ fetchTasks }) => {
         placeholder="Add a new task"
         required
       />
-      <button type="submit" className="bg-blue-500 text-white p-2">Add Task</button>
+      <button>Add Task</button>
     </form>
   );
 };
