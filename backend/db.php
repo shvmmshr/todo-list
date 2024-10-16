@@ -2,10 +2,10 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 
-$servername = "localhost";
-$username = "root"; // Default username for WAMP
-$password = ""; // Password, which is empty by default. If you set a new password, use it here.
-$dbname = "todo_db";
+$servername = "mysql"; // Use the service name defined in docker-compose
+$username = "root"; // Default username for MySQL
+$password = getenv('MYSQL_ROOT_PASSWORD'); // Use the root password defined in docker-compose
+$dbname = getenv('MYSQL_DATABASE'); // Use the database name defined in docker-compose
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

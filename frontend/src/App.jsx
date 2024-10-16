@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import TaskList from './components/TaskList';
-import TaskForm from './components/TaskForm';
-import './index.css';
+import React, { useState, useEffect } from "react";
+import TaskList from "./components/TaskList";
+import TaskForm from "./components/TaskForm";
+import "./index.css";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
   const fetchTasks = async () => {
-    const response = await fetch('http://localhost/todo-list/get_tasks.php');
+    const response = await fetch("http://localhost/todo-list/get_tasks.php");
     const data = await response.json();
     setTasks(data);
   };
