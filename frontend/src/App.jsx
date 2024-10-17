@@ -19,12 +19,17 @@ const App = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">To-Do List</h1>
-      <TaskForm fetchTasks={fetchTasks} />
-      <TaskList tasks={tasks} fetchTasks={fetchTasks} />
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-cyan-200 to-blue-200">
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full">
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-4">
+          To-Do List
+        </h1>
+        <TaskForm fetchTasks={fetchTasks} />
+        <TaskList tasks={tasks} fetchTasks={fetchTasks} />
+      </div>
     </div>
   );
+
 };
 
 export default App;

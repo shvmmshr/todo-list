@@ -31,18 +31,20 @@ const TaskForm = ({ fetchTasks }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
+    <form onSubmit={handleSubmit} className="flex mb-4 gap-2">
       <input
         type="text"
         value={task}
         onChange={(e) => setTask(e.target.value)}
-        className="border p-2 mr-2"
-        placeholder="Add a new task"
-        required
+        className="shadow-sm border border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full placeholder-gray-400"
+        placeholder="What needs to be done?"
       />
-      <button type="submit">Add Task</button>
+      <button type="submit" className="add-task-btn">
+        Add Task
+      </button>
     </form>
   );
+
 };
 
 export default TaskForm;
