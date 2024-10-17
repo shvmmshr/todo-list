@@ -2,7 +2,7 @@ import React from 'react';
 
 const TaskList = ({ tasks, fetchTasks }) => {
   const handleDelete = async (id) => {
-    await fetch(`http://localhost/todo-list/delete_task.php?id=${id}`);
+    await fetch(`http://localhost:8080/delete_task.php?id=${id}`);
     fetchTasks();
   };
 

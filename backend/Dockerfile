@@ -1,23 +1,22 @@
-# Use the official PHP image with Apache
-# Use the official PHP image with Apache
-FROM php:8.1-apache
+# Use official PHP 7.4 image with Apache
+FROM php:7.4-apache
 
-# Copy your Apache config
-COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
+# Install necessary PHP extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli
 
-# Copy your PHP files from the backend directory to the /var/www/html directory in the container
-COPY . /var/www/html/
+# Copy PHP application files to Apache root
+COPY . /var/www/html
 
-# Enable Apache Rewrite module if needed
-RUN a2enmod rewrite
+# Enable Apache modules
+RUN a2enmod rewrite headers
 
-# Set the working directory
-WORKDIR /var/www/html
+# Copy custom virtual host configuration to Apache and enable it
+COPY ./my-site.conf /etc/apache2/sites-available/my-site.conf
+RUN a2dissite 000-default && a2ensite my-site
 
-# Enable the new configuration
-RUN a2ensite 000-default.conf
-# Set environment variables for database connection
-ENV DB_HOST=mysql
-ENV DB_NAME=todo_list_db
-ENV DB_USER=root
-ENV DB_PASSWORD=password
+# Expose HTTP and HTTPS ports
+EXPOSE 80
+EXPOSE 443
+
+# Start Apache in the foreground
+CMD ["apache2-foreground"]

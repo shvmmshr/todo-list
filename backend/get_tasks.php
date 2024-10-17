@@ -1,18 +1,15 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
 include 'db.php';
 
-$sql = "SELECT * FROM tasks";
-$result = $conn->query($sql);
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 
-$tasks = array();
+$result = $conn->query("SELECT id, title AS task FROM tasks"); // Ensure the correct field is selected
+$tasks = [];
+
 while ($row = $result->fetch_assoc()) {
     $tasks[] = $row;
 }
 
 echo json_encode($tasks);
-
-$conn->close();
 ?>
