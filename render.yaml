@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: todo-list-frontend
+    env: static
+    staticPublishPath: /dist # Change this if your build output is in a different folder
+    buildCommand: npm install && npm run build
+    publishPath: ./frontend/dist
+    autoDeploy: true
+
+  - type: web
+    name: todo-list-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
+
+  - type: web
+    name: todo-list-phpmyadmin
+    env: docker
+    dockerfilePath: docker-compose
+    buildCommand: docker-compose build phpmyadmin
+    startCommand: docker-compose up phpmyadmin
+    ports:
+      - name: http
+        port: 8081
+
+  - type: web
+    name: todo-list-mysql
+    env: docker
+    dockerfilePath: docker-compose
+    buildCommand: docker-compose build db
+    startCommand: docker-compose up db
+    ports:
+      - name: mysql
+        port: 3306
