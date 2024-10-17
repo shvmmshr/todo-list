@@ -4,8 +4,8 @@ services:
     name: todo-list-backend
     env: docker
     docker:
+      dockerfilePath: ./backend/Dockerfile  # Path to the backend Dockerfile
       buildCommand: 'docker build -t backend .'
-      dockerfilePath: backend/Dockerfile
       environment:
         - MYSQL_DB_CONNECTION=${MYSQL_DB_CONNECTION}
         - MYSQL_DB_NAME=${MYSQL_DB_NAME}
@@ -20,7 +20,7 @@ services:
     name: todo-list-frontend
     env: docker
     docker:
+      dockerfilePath: ./frontend/Dockerfile  # Path to the frontend Dockerfile
       buildCommand: 'docker build -t frontend .'
-      dockerfilePath: frontend/Dockerfile
     healthCheckPath: /
     autoDeploy: true
