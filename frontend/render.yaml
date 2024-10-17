@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: todo-list-backend
+    env: php
+    plan: free
+    buildCommand: "docker-compose build"
+    startCommand: "docker-compose up"
+    envVars:
+      MYSQL_DB_CONNECTION: "${MYSQL_DB_CONNECTION}"
+      MYSQL_DB_NAME: "${MYSQL_DB_NAME}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    healthCheckPath: "/"
+    autoDeploy: true
+
+  - type: web
+    name: todo-list-frontend
+    env: static
+    plan: free
+    staticPublishPath: ./frontend/build
