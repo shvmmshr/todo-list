@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
-import '../Button/button.css';
+import React, { useState } from "react";
+import "../Button/button.css";
+
 const TaskForm = ({ fetchTasks }) => {
-  const [task, setTask] = useState('');
+  const [task, setTask] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost/todo-list/add_task.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({ task }),
-    });
-    setTask('');
-    fetchTasks();
+
+    try {
+      const response = await fetch("http://localhost:8080/add_task.php", {
+        // Ensure correct port
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ title: task }), // Use the correct key
+      });
+
+      const data = await response.json(); // Parse the response
+
+      if (data.status === "success") {
+        setTask(""); // Clear the input if successful
+        fetchTasks(); // Refresh tasks
+      } else {
+        console.error("Error adding task:", data.message); // Log error message
+      }
+    } catch (error) {
+      console.error("Error:", error); // Catch network errors
+    }
   };
 
   return (
@@ -26,7 +40,7 @@ const TaskForm = ({ fetchTasks }) => {
         placeholder="Add a new task"
         required
       />
-      <button>Add Task</button>
+      <button type="submit">Add Task</button>
     </form>
   );
 };

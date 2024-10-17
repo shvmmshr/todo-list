@@ -7,7 +7,9 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
 
   const fetchTasks = async () => {
-    const response = await fetch("http://localhost/todo-list/get_tasks.php");
+    const response = await fetch(
+      "http://localhost:8080/get_tasks.php"
+    );
     const data = await response.json();
     setTasks(data);
   };
